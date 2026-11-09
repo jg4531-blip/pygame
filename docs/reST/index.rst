@@ -1,213 +1,130 @@
-Pygame Front Page
-=================
-
-.. toctree::
-   :maxdepth: 2
-   :glob:
-   :hidden:
-
-   ref/*
-   tut/*
-   tut/en/**/*
-   tut/ko/**/*
-   c_api
-   filepaths
-   logos
-
-Quick start
------------
-
-Welcome to pygame! Once you've got pygame installed (:code:`pip install pygame` or
-:code:`pip3 install pygame` for most people), the next question is how to get a game
-loop running. Pygame, unlike some other libraries, gives you full control of program
-execution. That freedom means it is easy to mess up in your initial steps.
-
-Here is a good example of a basic setup (opens the window, updates the screen, and handles events)--
-
-.. literalinclude:: ref/code_examples/base_script.py
-
-Here is a slightly more fleshed out example, which shows you how to move something
-(a circle in this case) around on screen--
-
-.. literalinclude:: ref/code_examples/base_script_example.py
-
-For more in depth reference, check out the :ref:`tutorials-reference-label`
-section below, check out a video tutorial (`I'm a fan of this one
-<https://www.youtube.com/watch?v=AY9MnQ4x3zk>`_), or reference the API
-documentation by module.
-
-Documents
----------
-
-`Readme`_
-  Basic information about pygame: what it is, who is involved, and where to find it.
-
-`Install`_
-  Steps needed to compile pygame on several platforms.
-  Also help on finding and installing prebuilt binaries for your system.
-
-:doc:`filepaths`
-  How pygame handles file system paths.
-
-:doc:`Pygame Logos <logos>`
-   The logos of Pygame in different resolutions.
-
-
-`LGPL License`_
-  This is the license pygame is distributed under.
-  It provides for pygame to be distributed with open source and commercial software.
-  Generally, if pygame is not changed, it can be used with any type of program.
-
-.. _tutorials-reference-label:
-
-Tutorials
----------
-
-:doc:`Introduction to Pygame <tut/PygameIntro>`
-  An introduction to the basics of pygame.
-  This is written for users of Python and appeared in volume two of the Py magazine.
-
-:doc:`Import and Initialize <tut/ImportInit>`
-  The beginning steps on importing and initializing pygame.
-  The pygame package is made of several modules.
-  Some modules are not included on all platforms.
-
-:doc:`How do I move an Image? <tut/MoveIt>`
-  A basic tutorial that covers the concepts behind 2D computer animation.
-  Information about drawing and clearing objects to make them appear animated.
-
-:doc:`Chimp Tutorial, Line by Line <tut/ChimpLineByLine>`
-  The pygame examples include a simple program with an interactive fist and a chimpanzee.
-  This was inspired by the annoying flash banner of the early 2000s.
-  This tutorial examines every line of code used in the example.
-
-:doc:`Sprite Module Introduction <tut/SpriteIntro>`
-  Pygame includes a higher level sprite module to help organize games.
-  The sprite module includes several classes that help manage details found in almost all games types.
-  The Sprite classes are a bit more advanced than the regular pygame modules,
-  and need more understanding to be properly used.
-
-:doc:`Surfarray Introduction <tut/SurfarrayIntro>`
-  Pygame used the NumPy python module to allow efficient per pixel effects on images.
-  Using the surface arrays is an advanced feature that allows custom effects and filters.
-  This also examines some of the simple effects from the pygame example, arraydemo.py.
-
-:doc:`Camera Module Introduction <tut/CameraIntro>`
-  Pygame, as of 1.9, has a camera module that allows you to capture images,
-  watch live streams, and do some basic computer vision.
-  This tutorial covers those use cases.
-
-:doc:`Newbie Guide <tut/newbieguide>`
-  A list of thirteen helpful tips for people to get comfortable using pygame.
-
-:doc:`Making Games Tutorial <tut/MakeGames>`
-  A large tutorial that covers the bigger topics needed to create an entire game.
-
-:doc:`Display Modes <tut/DisplayModes>`
-  Getting a display surface for the screen.
-
-:doc:`한국어 튜토리얼 (Korean Tutorial) <tut/ko/빨간블록 검은블록/개요>`
-  빨간블록 검은블록
-
-
-Reference
----------
-
-:ref:`genindex`
-  A list of all functions, classes, and methods in the pygame package.
-
-:doc:`ref/bufferproxy`
-  An array protocol view of surface pixels
-
-:doc:`ref/color`
-  Color representation.
-
-:doc:`ref/cursors`
-  Loading and compiling cursor images.
-
-:doc:`ref/display`
-  Configure the display surface.
-
-:doc:`ref/draw`
-  Drawing simple shapes like lines and ellipses to surfaces.
-
-:doc:`ref/event`
-  Manage the incoming events from various input devices and the windowing platform.
-
-:doc:`ref/examples`
-  Various programs demonstrating the use of individual pygame modules.
-
-:doc:`ref/font`
-  Loading and rendering TrueType fonts.
-
-:doc:`ref/freetype`
-  Enhanced pygame module for loading and rendering font faces.
-
-:doc:`ref/gfxdraw`
-  Anti-aliasing draw functions.
-
-:doc:`ref/image`
-  Loading, saving, and transferring of surfaces.
-
-:doc:`ref/joystick`
-  Manage the joystick devices.
-
-:doc:`ref/key`
-  Manage the keyboard device.
-
-:doc:`ref/locals`
-  Pygame constants.
-
-:doc:`ref/mixer`
-  Load and play sounds
-
-:doc:`ref/mouse`
-  Manage the mouse device and display.
-
-:doc:`ref/music`
-  Play streaming music tracks.
-
-:doc:`ref/pygame`
-  Top level functions to manage pygame.
-
-:doc:`ref/pixelarray`
-  Manipulate image pixel data.
-
-:doc:`ref/rect`
-  Flexible container for a rectangle.
-
-:doc:`ref/scrap`
-  Native clipboard access.
-
-:doc:`ref/sndarray`
-  Manipulate sound sample data.
-
-:doc:`ref/sprite`
-  Higher level objects to represent game images.
-
-:doc:`ref/surface`
-  Objects for images and the screen.
-
-:doc:`ref/surfarray`
-  Manipulate image pixel data.
-
-:doc:`ref/tests`
-  Test pygame.
-
-:doc:`ref/time`
-  Manage timing and framerate.
-
-:doc:`ref/transform`
-  Resize and move images.
-
-:doc:`pygame C API <c_api>`
-  The C api shared amongst pygame extension modules.
-
-:ref:`search`
-  Search pygame documents by keyword.
-
-.. _Readme: ../wiki/about
-
-.. _Install: ../wiki/GettingStarted#Pygame%20Installation
-
-.. _LGPL License: LGPL.txt
+import math
+import sys
+import pygame
+
+# --- GAME SETTINGS ---
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+FPS = 60
+
+# Player variables
+player_x = 3.5
+player_y = 3.5
+player_angle = 0.0  # In radians
+FOV = math.pi / 3  # 60-degree field of view
+HALF_FOV = FOV / 2
+NUM_RAYS = 120  # Number of rays to cast (higher = better quality, lower = faster)
+MAX_DEPTH = 16  # Maximum visibility distance
+PLAYER_SPEED = 0.05
+ROTATION_SPEED = 0.04
+
+# Map layout: 1s represent walls, 0s represent empty space
+MAP = [
+    [1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1],
+]
+MAP_SIZE = len(MAP)
+
+# Initialize Pygame
+pygame.init()
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption("Python Pseudo-3D Engine")
+clock = pygame.time.Clock()
+
+# Calculate dynamic projection scalars
+DELTA_ANGLE = FOV / NUM_RAYS
+SCALE = SCREEN_WIDTH // NUM_RAYS
+DIST = NUM_RAYS / (2 * math.tan(HALF_FOV))
+PROJ_COEFF = DIST * 40  # Constant to scale wall height adjustments
+
+# Main Game Loop
+while True:
+    # 1. Event Handling
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT or (
+            event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE
+        ):
+            pygame.quit()
+            sys.exit()
+
+    # 2. Player Controls & Collision Detection
+    keys = pygame.key.get_pressed()
+    sin_a = math.sin(player_angle)
+    cos_a = math.cos(player_angle)
+
+    # Rotation
+    if keys[pygame.K_LEFT]:
+        player_angle -= ROTATION_SPEED
+    if keys[pygame.K_RIGHT]:
+        player_angle += ROTATION_SPEED
+
+    # Forward / Backward Movement (with basic grid collision check)
+    new_x, new_y = player_x, player_y
+    if keys[pygame.K_w]:
+        new_x += PLAYER_SPEED * cos_a
+        new_y += PLAYER_SPEED * sin_a
+    if keys[pygame.K_s]:
+        new_x -= PLAYER_SPEED * cos_a
+        new_y -= PLAYER_SPEED * sin_a
+
+    if MAP[int(new_y)][int(new_x)] == 0:
+        player_x, player_y = new_x, new_y
+
+    # 3. Rendering (Drawing Sky and Floor)
+    screen.fill((30, 30, 30))  # Dark gray floor
+    pygame.draw.rect(
+        screen, (50, 70, 90), (0, 0, SCREEN_WIDTH, SCREEN_HEIGHT // 2)
+    )  # Blue-gray sky
+
+    # 4. Raycasting Engine Logic
+    start_angle = player_angle - HALF_FOV
+
+    for ray in range(NUM_RAYS):
+        cur_angle = start_angle + ray * DELTA_ANGLE
+        sin_r = math.sin(cur_angle)
+        cos_r = math.cos(cur_angle)
+
+        # Cast a single ray forward until it hits a wall cell
+        for depth in range(1, int(MAX_DEPTH * 10)):
+            d = depth / 10
+            target_x = player_x + d * cos_r
+            target_y = player_y + d * sin_r
+
+            # Map check boundaries
+            if (
+                0 <= target_x < MAP_SIZE
+                and 0 <= target_y < MAP_SIZE
+                and MAP[int(target_y)][int(target_x)] == 1
+            ):
+                # Fix fish-eye lens distortion
+                d *= math.cos(player_angle - cur_angle)
+
+                # Calculate the exact perceived 3D wall slice height
+                wall_height = min(int(PROJ_COEFF / (d + 0.0001)), SCREEN_HEIGHT)
+
+                # Shading: Walls farther away get deeper shades of grey/black
+                color_val = int(255 / (1 + d * d * 0.2))
+                wall_color = (color_val, color_val // 2, color_val // 3)
+
+                # Draw the column slice representing this ray
+                pygame.draw.rect(
+                    screen,
+                    wall_color,
+                    (
+                        ray * SCALE,
+                        (SCREEN_HEIGHT // 2) - (wall_height // 2),
+                        SCALE,
+                        wall_height,
+                    ),
+                )
+                break
+
+    # 5. Core Screen Refresh
+    pygame.display.flip()
+    clock.tick(FPS)
